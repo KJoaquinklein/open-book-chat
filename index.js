@@ -1,6 +1,7 @@
 const http = require("http");
+
 const server = http.createServer();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const io = require("socket.io")(server, {
     cors: { origin: "*" },
@@ -8,7 +9,7 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
     socket.on("newConnected", (data) => {
-        socket.broadcast.emit("newConnected", data.message);
+        socket.broadcast.emit("newConnected", data);
     });
 
     socket.on("send_message", (data) => {
