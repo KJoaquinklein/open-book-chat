@@ -11,7 +11,7 @@ const sequelize = new Sequelize(DB_DEPLOY, {
     dialectOptions: {
         ssl: {
             require: true,
-            rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+            rejectUnauthorized: false,
         },
     },
 });
