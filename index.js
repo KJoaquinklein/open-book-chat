@@ -7,7 +7,17 @@ const io = require("socket.io")(server, {
     cors: { origin: "*" },
 });
 
+const usersConnected = [];
+
 io.on("connection", (socket) => {
+    socket.on("user_connected", (data) => {
+        usersConnected.push(data.user);
+    });
+
+    socket.on("user_disconnected", (data) => {
+        usersConnected.filter((user) => user !== data.user);
+    });
+
     socket.on("newConnected", (data) => {
         socket.broadcast.emit("newConnected", data);
     });
