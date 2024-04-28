@@ -12,6 +12,7 @@ const usersConnected = [];
 io.on("connection", (socket) => {
     socket.on("user_connected", (data) => {
         usersConnected.push(data.user);
+        io.emit("user_connected", usersConnected);
     });
 
     socket.on("user_disconnected", (data) => {
