@@ -1,3 +1,4 @@
+const { lutimes } = require("fs/promises");
 const http = require("http");
 
 const server = http.createServer();
@@ -7,7 +8,7 @@ const io = require("socket.io")(server, {
     cors: { origin: "*" },
 });
 
-const usersConnected = [];
+let usersConnected = [];
 
 io.on("connection", (socket) => {
     socket.on("user_connected", (data) => {
@@ -16,7 +17,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("user_disconnected", (data) => {
-        usersConnected.filter((user) => user !== data.user);
+        usersConnected = usersConnected.filter((user) => user !== data.user);
         io.emit("user_disconnected", usersConnected);
     });
 
