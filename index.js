@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
 
     socket.on("user_disconnected", (data) => {
         usersConnected.filter((user) => user !== data.user);
+        io.emit("user_disconnected", usersConnected);
     });
 
     socket.on("newConnected", (data) => {
