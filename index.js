@@ -12,12 +12,12 @@ let usersConnected = [];
 
 io.on("connection", (socket) => {
     socket.on("user_connected", (data) => {
-        usersConnected.push(data.user);
+        usersConnected.push({ user: data.user, email: data.email });
         io.emit("user_connected", usersConnected);
     });
 
     socket.on("user_disconnected", (data) => {
-        usersConnected = usersConnected.filter((user) => user !== data.user);
+        usersConnected = usersConnected.filter((user) => user.email !== data.email);
         io.emit("user_disconnected", usersConnected);
     });
 
